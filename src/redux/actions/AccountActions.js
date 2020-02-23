@@ -3,15 +3,15 @@ import firebase from '../../services/firebase';
 export const createAccountAction = (
   email,
   password,
-  displayName
-) => async dispatch => {
+  displayName,
+) => async (dispatch) => {
   try {
     console.log(displayName);
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
-      .then(data => {
-        firebase.auth().onAuthStateChanged(user => {
+      .then((data) => {
+        firebase.auth().onAuthStateChanged((user) => {
           user.updateProfile({ displayName });
           dispatch({
             type: 'LOGIN_SUCCESS',
@@ -19,7 +19,7 @@ export const createAccountAction = (
           });
         });
       })
-      .catch(function(error) {
+      .catch((error) => {
         console.log(error);
       });
   } catch (err) {
@@ -30,13 +30,13 @@ export const createAccountAction = (
   }
 };
 
-export const loginAccountAction = (email, password) => async dispatch => {
+export const loginAccountAction = (email, password) => async (dispatch) => {
   try {
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
-      .then(data => {
-        firebase.auth().onAuthStateChanged(user => {
+      .then((data) => {
+        firebase.auth().onAuthStateChanged((user) => {
           dispatch({
             type: 'LOGIN_SUCCESS',
             payload: user,

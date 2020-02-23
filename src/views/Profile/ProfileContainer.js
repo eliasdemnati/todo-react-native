@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import Profile from './Profile';
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   displayName: state.account.user.displayName,
   email: state.account.user.email,
 });

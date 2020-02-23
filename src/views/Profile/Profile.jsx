@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes, { string } from 'prop-types';
 import { View, StyleSheet } from 'react-native';
-import { Avatar, Header, Icon, Text } from 'react-native-elements';
+import {
+  Avatar, Header, Icon, Text,
+} from 'react-native-elements';
 
 const styles = StyleSheet.create({
   profileContainer: {
@@ -24,7 +26,7 @@ class Profile extends Component {
     <View style={styles.mainContainer}>
       <Header
         leftComponent={
-          <Icon name='arrow-back' color='#fff' onPress={() => this.goBack()} />
+          <Icon name="arrow-back" color="#fff" onPress={() => this.goBack()} />
         }
         centerComponent={{
           text: 'Task List',
@@ -34,7 +36,7 @@ class Profile extends Component {
       <View style={styles.profileContainer}>
         <Avatar
           rounded
-          size='xlarge'
+          size="xlarge"
           source={{
             uri:
               'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',

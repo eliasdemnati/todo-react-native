@@ -54,14 +54,14 @@ class AddTask extends Component {
     const { navigation } = this.props;
 
     navigation.goBack();
-  }
+  };
 
   getPermissionAsync = async () => {
     if (Constants.platform.ios) {
       await Permissions.askAsync(Permissions.CAMERA);
       await Permissions.askAsync(Permissions.CAMERA_ROLL);
     }
-  }
+  };
 
   selectImage = async () => {
     const result = await ImagePicker.launchCameraAsync({
@@ -75,7 +75,12 @@ class AddTask extends Component {
     if (!result.cancelled) {
       this.setState({ taskAvatarUri: result });
     }
-  }
+  };
+
+  pushTask = () => {
+    const { addTask } = this.props;
+    addTask('', '');
+  };
 
   render = () => {
     const { taskAvatarUri } = this.state;
@@ -83,14 +88,23 @@ class AddTask extends Component {
     return (
       <View style={{ flex: 1 }}>
         <Header
-          leftComponent={<Icon name="arrow-back" color="#fff" onPress={this.goBack} />}
-          centerComponent={{ text: 'Task List', style: { color: '#fff', fontSize: 24 } }}
+          leftComponent={
+            <Icon name="arrow-back" color="#fff" onPress={this.goBack} />
+          }
+          centerComponent={{
+            text: 'Task List',
+            style: { color: '#fff', fontSize: 24 },
+          }}
         />
         <View style={styles.buttonsContainer}>
           <Avatar
             rounded
             size="xlarge"
-            source={{ uri: taskAvatarUri.uri || 'https://via.placeholder.com/150/F2F2F2/F2F2F2' }}
+            source={{
+              uri:
+                taskAvatarUri.uri
+                || 'https://via.placeholder.com/150/F2F2F2/F2F2F2',
+            }}
             onPress={this.selectImage}
             showEditButton
           />
@@ -100,16 +114,17 @@ class AddTask extends Component {
           />
           <Button
             title="Create task"
-            onPress={null}
+            onPress={() => this.pushTask()}
             containerStyle={styles.buttons}
           />
         </View>
       </View>
     );
-  }
+  };
 }
 
 AddTask.propTypes = {
+  addTask: PropTypes.func.isRequired,
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,
     goBack: PropTypes.func.isRequired,

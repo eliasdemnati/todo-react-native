@@ -3,39 +3,43 @@ import PropTypes from 'prop-types';
 import { View } from 'react-native';
 import { Header, ListItem, Icon } from 'react-native-elements';
 import GestureRecognizer from 'react-native-swipe-gestures';
+import firebase from '../../services/firebase';
 
 class TaskList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tasks: [{
-        id: 0,
-        desc: 'Acheter du pain',
-        img: 'https://resize-elle.ladmedia.fr/r/618,769,force,ffffff/img/var/plain_site/storage/images/elle-a-table/recettes-de-cuisine/pain-au-mais-2064432/21569428-3-fre-FR/Pain-au-mais.jpg',
-        done: false,
-      }, {
-        id: 1,
-        desc: 'Acheter du lait',
-        img: 'https://www.carrefour.fr/media/540x540/Photosite/PGC/P.L.S./3245414187498_PHOTOSITE_20170627_161642_0.jpg?placeholder=1',
-        done: true,
-      }],
+      tasks: [],
     };
   }
 
   componentDidMount = () => {
-    console.log('fetch task list');
-  }
+    const userId = firebase.auth().currentUser.uid;
+    firebase
+      .database()
+      .ref(`users/${userId}/tasks/`)
+      .once('value')
+      .then((snapshot) => {
+        const lists = snapshot.val();
+        const tasks = [];
+        Object.values(lists).forEach((value) => {
+          tasks.push(value);
+        });
+        this.setState({ tasks });
+      });
+  };
 
   deleteElement = (task) => {
     console.log(`Delete task: ${task.desc}`);
-  }
+  };
 
   goToPage = (page) => {
-    const { navigation: { navigate } } = this.props;
+    const {
+      navigation: { navigate },
+    } = this.props;
 
     navigate(page);
-  }
-
+  };
 
   render = () => {
     const { tasks } = this.state;
@@ -43,29 +47,42 @@ class TaskList extends Component {
     return (
       <View>
         <Header
-          leftComponent={<Icon name="arrow-back" color="#fff" onPress={() => this.goToPage('Home')} />}
-          centerComponent={{ text: 'Task List', style: { color: '#fff', fontSize: 24 } }}
-          rightComponent={<Icon name="add" color="#fff" onPress={() => this.goToPage('AddTask')} />}
+          leftComponent={(
+            <Icon
+              name="arrow-back"
+              color="#fff"
+              onPress={() => this.goToPage('Home')}
+            />
+          )}
+          centerComponent={{
+            text: 'Task List',
+            style: { color: '#fff', fontSize: 24 },
+          }}
+          rightComponent={(
+            <Icon
+              name="add"
+              color="#fff"
+              onPress={() => this.goToPage('AddTask')}
+            />
+          )}
         />
-        {
-          tasks.map((task) => (
-            <GestureRecognizer
-              onSwipeRight={() => this.deleteElement(task)}
+        {tasks.map((task) => (
+          <GestureRecognizer
+            onSwipeRight={() => this.deleteElement(task)}
+            key={task.id}
+          >
+            <ListItem
               key={task.id}
-            >
-              <ListItem
-                key={task.id}
-                leftAvatar={{ source: { uri: task.img } }}
-                title={task.desc}
-                checkmark={task.done}
-                bottomDivider
-              />
-            </GestureRecognizer>
-          ))
-        }
+              leftAvatar={{ source: { uri: task.img } }}
+              title={task.description}
+              checkmark={task.done}
+              bottomDivider
+            />
+          </GestureRecognizer>
+        ))}
       </View>
     );
-  }
+  };
 }
 
 TaskList.propTypes = {

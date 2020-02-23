@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, StyleSheet } from 'react-native';
-import { Header, Icon, Input, Button, Avatar } from 'react-native-elements';
+import {
+  Header, Icon, Input, Button, Avatar,
+} from 'react-native-elements';
 import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
@@ -43,19 +45,19 @@ class CreateAccount extends Component {
     navigation.goBack();
   };
 
-  onChangeEmail = email => {
+  onChangeEmail = (email) => {
     this.setState({
       email,
     });
   };
 
-  onChangeName = displayName => {
+  onChangeName = (displayName) => {
     this.setState({
       displayName,
     });
   };
 
-  onChangePassword = password => {
+  onChangePassword = (password) => {
     this.setState({
       password,
     });
@@ -95,13 +97,13 @@ class CreateAccount extends Component {
     return (
       <View style={{ flex: 1 }}>
         <Header
-          leftComponent={
+          leftComponent={(
             <Icon
-              name='arrow-back'
-              color='#fff'
+              name="arrow-back"
+              color="#fff"
               onPress={() => this.goBack()}
             />
-          }
+          )}
           centerComponent={{
             text: 'Task List',
             style: { color: '#fff', fontSize: 24 },
@@ -110,7 +112,7 @@ class CreateAccount extends Component {
         <View style={styles.buttonsContainer}>
           <Avatar
             rounded
-            size='xlarge'
+            size="xlarge"
             source={{
               uri:
                 avatar.uri || 'https://via.placeholder.com/150/F2F2F2/F2F2F2',
@@ -119,23 +121,23 @@ class CreateAccount extends Component {
             showEditButton
           />
           <Input
-            placeholder='displayName'
-            onChangeText={text => this.onChangeName(text)}
+            placeholder="displayName"
+            onChangeText={(text) => this.onChangeName(text)}
             containerStyle={styles.buttons}
           />
           <Input
-            placeholder='Email'
-            onChangeText={text => this.onChangeEmail(text)}
+            placeholder="Email"
+            onChangeText={(text) => this.onChangeEmail(text)}
             containerStyle={styles.buttons}
           />
           <Input
-            placeholder='Password'
+            placeholder="Password"
             secureTextEntry
-            onChangeText={text => this.onChangePassword(text)}
+            onChangeText={(text) => this.onChangePassword(text)}
             containerStyle={styles.buttons}
           />
           <Button
-            title='Create an account'
+            title="Create an account"
             onPress={() => this.createAccount()}
             containerStyle={styles.buttons}
           />

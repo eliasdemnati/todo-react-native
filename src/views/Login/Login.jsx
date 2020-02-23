@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, StyleSheet } from 'react-native';
-import { Header, Icon, Input, Button } from 'react-native-elements';
+import {
+  Header, Icon, Input, Button,
+} from 'react-native-elements';
 import firebase from '../../services/firebase';
 
 const styles = StyleSheet.create({
@@ -39,13 +41,13 @@ class Login extends Component {
     navigation.goBack();
   };
 
-  onChangeEmail = email => {
+  onChangeEmail = (email) => {
     this.setState({
       email,
     });
   };
 
-  onChangePassword = password => {
+  onChangePassword = (password) => {
     this.setState({
       password,
     });
@@ -62,7 +64,7 @@ class Login extends Component {
     <View style={{ flex: 1 }}>
       <Header
         leftComponent={
-          <Icon name='arrow-back' color='#fff' onPress={() => this.goBack()} />
+          <Icon name="arrow-back" color="#fff" onPress={() => this.goBack()} />
         }
         centerComponent={{
           text: 'Task List',
@@ -71,18 +73,18 @@ class Login extends Component {
       />
       <View style={styles.buttonsContainer}>
         <Input
-          placeholder='Email'
-          onChangeText={text => this.onChangeEmail(text)}
+          placeholder="Email"
+          onChangeText={(text) => this.onChangeEmail(text)}
           containerStyle={styles.buttons}
         />
         <Input
-          placeholder='Password'
+          placeholder="Password"
           secureTextEntry
-          onChangeText={text => this.onChangePassword(text)}
+          onChangeText={(text) => this.onChangePassword(text)}
           containerStyle={styles.buttons}
         />
         <Button
-          title='Login'
+          title="Login"
           onPress={() => this.loginAccount()}
           containerStyle={styles.buttons}
         />

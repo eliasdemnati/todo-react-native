@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import Home from './Home';
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   isLogged: state.account.isLogged,
 });
 

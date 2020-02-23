@@ -4,9 +4,9 @@ import AddTask from './AddTask';
 
 const mapStateToProps = () => ({});
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   addTask: (name, img) => {
-    dispatch(addTaskAction());
+    dispatch(addTaskAction(name, img));
   },
 });
 
