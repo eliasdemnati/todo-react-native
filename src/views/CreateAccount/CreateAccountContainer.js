@@ -4,9 +4,9 @@ import CreateAccount from './CreateAccount';
 
 const mapStateToProps = () => ({});
 
-const mapDispatchToProps = (dispatch) => ({
-  createAccount: (email, password) => {
-    dispatch(createAccountAction(email, password));
+const mapDispatchToProps = dispatch => ({
+  createAccount: (email, password, displayName) => {
+    dispatch(createAccountAction(email, password, displayName));
   },
 });
 

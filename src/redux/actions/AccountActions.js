@@ -1,12 +1,18 @@
 import firebase from '../../services/firebase';
 
-export const createAccountAction = (email, password) => async dispatch => {
+export const createAccountAction = (
+  email,
+  password,
+  displayName
+) => async dispatch => {
   try {
+    console.log(displayName);
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
       .then(data => {
         firebase.auth().onAuthStateChanged(user => {
+          user.updateProfile({ displayName });
           dispatch({
             type: 'LOGIN_SUCCESS',
             payload: user,

@@ -26,6 +26,7 @@ class CreateAccount extends Component {
     this.state = {
       email: '',
       password: '',
+      displayName: '',
       avatar: '',
     };
   }
@@ -42,6 +43,12 @@ class CreateAccount extends Component {
     });
   };
 
+  onChangeName = displayName => {
+    this.setState({
+      displayName,
+    });
+  };
+
   onChangePassword = password => {
     this.setState({
       password,
@@ -49,10 +56,10 @@ class CreateAccount extends Component {
   };
 
   createAccount = () => {
-    const { email, password } = this.state;
+    const { email, password, displayName } = this.state;
     const { createAccount } = this.props;
 
-    createAccount(email, password);
+    createAccount(email, password, displayName);
   };
 
   getPermissionAsync = async () => {
@@ -106,13 +113,8 @@ class CreateAccount extends Component {
             showEditButton
           />
           <Input
-            placeholder='Firstname'
-            onChangeText={text => this.onChangeEmail(text)}
-            containerStyle={styles.buttons}
-          />
-          <Input
-            placeholder='Lastname'
-            onChangeText={text => this.onChangeEmail(text)}
+            placeholder='displayName'
+            onChangeText={text => this.onChangeName(text)}
             containerStyle={styles.buttons}
           />
           <Input
