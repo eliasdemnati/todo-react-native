@@ -6,9 +6,11 @@ const initialState = {
 const AccountReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'LOGIN_SUCCESS':
-      initialState.isLogged = true;
-      initialState.user = action.payload;
-      return state;
+      return {
+        ...state,
+        isLogged: true,
+        user: action.payload,
+      };
     default:
       return state;
   }

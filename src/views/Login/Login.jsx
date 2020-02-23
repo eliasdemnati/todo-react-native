@@ -27,6 +27,12 @@ class Login extends Component {
     };
   }
 
+  UNSAFE_componentWillReceiveProps = (nextProps) => {
+    if (nextProps.isLogged) {
+      this.goBack();
+    }
+  }
+
   goBack = () => {
     const { navigation } = this.props;
 

@@ -1,7 +1,9 @@
 import { connect } from 'react-redux';
 import Home from './Home';
 
-const mapStateToProps = () => ({});
+const mapStateToProps = state => ({
+  isLogged: state.account.isLogged,
+});
 
 const mapDispatchToProps = () => ({});
 

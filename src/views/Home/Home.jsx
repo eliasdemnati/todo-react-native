@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const Home = ({ navigation: { navigate } }) => (
+const Home = ({ navigation: { navigate }, isLogged }) => (
   <View style={{ flex: 1 }}>
     <Header
       centerComponent={{ text: 'Task List', style: { color: '#fff', fontSize: 24 } }}
@@ -28,28 +28,35 @@ const Home = ({ navigation: { navigate } }) => (
       style={{ width: 200, height: 200 }}
       containerStyle={{ alignSelf: 'center' }}
     />
-    <View style={styles.buttonsContainer}>
-      <Button
-        title="Create an account"
-        onPress={() => navigate('CreateAccount')}
-        containerStyle={styles.buttons}
-      />
-      <Button
-        title="Login"
-        onPress={() => navigate('Login')}
-        containerStyle={styles.buttons}
-      />
-      <Button
-        title="Task List"
-        onPress={() => navigate('TaskList')}
-        containerStyle={styles.buttons}
-      />
-      <Button
-        title="My Profile"
-        onPress={() => navigate('Profile')}
-        containerStyle={styles.buttons}
-      />
-    </View>
+    {
+      !isLogged ? (
+        <View style={styles.buttonsContainer}>
+          <Button
+            title="Create an account"
+            onPress={() => navigate('CreateAccount')}
+            containerStyle={styles.buttons}
+          />
+          <Button
+            title="Login"
+            onPress={() => navigate('Login')}
+            containerStyle={styles.buttons}
+          />
+        </View>
+      ) : (
+        <View style={styles.buttonsContainer}>
+          <Button
+            title="Task List"
+            onPress={() => navigate('TaskList')}
+            containerStyle={styles.buttons}
+          />
+          <Button
+            title="My Profile"
+            onPress={() => navigate('Profile')}
+            containerStyle={styles.buttons}
+          />
+        </View>
+      )
+    }
   </View>
 );
 
